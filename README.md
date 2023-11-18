@@ -32,7 +32,7 @@ npx playwright test
 Run all tests with tag:
 
 ```
- npx playwright test --grep "@GAD-R01-02"
+npx playwright test --grep "@GAD-R01-01"
 ```
 
 Run all tests without tag:
