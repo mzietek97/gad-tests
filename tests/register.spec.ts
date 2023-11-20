@@ -5,13 +5,12 @@ import { faker } from '@faker-js/faker';
 import { expect, test } from '@playwright/test';
 
 test.describe('Verify register', () => {
-  test('register with correct data and login @GAD_R03_01 @GAD_R03_02 @GAD_R03_03', async ({
+  test('register with correct data and login @GAD-R03-01 @GAD-R03-02 @GAD-R03-03', async ({
     page,
   }) => {
     // Arrange
-    const userFirstName = faker.person.firstName();
-    const userLastName = faker.person.lastName();
-    // const userEmail = `jntest${new Date().getTime()}@test.test1`;
+    const userFirstName = faker.person.firstName().replace(/[^A-Za-z]/g, '');
+    const userLastName = faker.person.lastName().replace(/[^A-Za-z]/g, '');
     const userEmail = faker.internet.email({
       firstName: userFirstName,
       lastName: userLastName,

@@ -4,7 +4,7 @@ import { testUser1 } from '../src/test-data/user.data';
 import { expect, test } from '@playwright/test';
 
 test.describe('Verify login', () => {
-  test('login with correct credentials @GAD_R02_01', async ({ page }) => {
+  test('login with correct credentials @GAD-R02-01', async ({ page }) => {
     // Arrange
     const userEmail = testUser1.userEmail;
     const userPassword = testUser1.userPassword;
@@ -21,7 +21,7 @@ test.describe('Verify login', () => {
     expect(title).toContain('Welcome');
   });
 
-  test('reject login with incorrect password @GAD_R02_01', async ({ page }) => {
+  test('reject login with incorrect password @GAD-R02-01', async ({ page }) => {
     // Arrange
     const userEmail = testUser1.userEmail;
     const userPassword = 'incorrectPassword';
