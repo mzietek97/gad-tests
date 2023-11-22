@@ -1,3 +1,4 @@
+/* eslint-disable playwright/expect-expect */
 import { randomNewArticle } from '../src/factories/article.factory';
 import { ArticlePage } from '../src/pages/article.page';
 import { ArticlesPage } from '../src/pages/articles.page';
@@ -22,6 +23,23 @@ test.describe('Verify articles', () => {
     await articlesPage.addArticleButtonLogged.click();
 
     await expect.soft(addArticleView.header).toBeVisible();
+  });
+
+  test('user can access single article @GAD-R04-03', async ({ page }) => {
+    // Arrange
+    const articlePage = new ArticlePage(page);
+    const articleData = randomNewArticle();
+
+    // Act
+    await addArticleView.createArticle(articleData);
+    await articlesPage.goto();
+    await page.getByText(articleData.title).click();
+
+    // Assert
+    await expect.soft(articlePage.articleTitle).toHaveText(articleData.title);
+    await expect
+      .soft(articlePage.articleBody)
+      .toHaveText(articleData.body, { useInnerText: true });
   });
 
   test('create new article @GAD-R04-01', async ({ page }) => {
