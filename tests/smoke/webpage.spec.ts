@@ -22,7 +22,6 @@ test.describe('Verify service main pages', () => {
     // Assert
     const title = await articlesPage.title();
     expect(title).toContain('Articles');
-    articlesPage.url;
   });
 
   test('comments page title @GAD-R01-02', async ({ page }) => {

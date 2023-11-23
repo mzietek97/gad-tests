@@ -1,4 +1,3 @@
-/* eslint-disable playwright/expect-expect */
 import { randomNewArticle } from '../src/factories/article.factory';
 import { ArticlePage } from '../src/pages/article.page';
 import { ArticlesPage } from '../src/pages/articles.page';

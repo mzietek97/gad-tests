@@ -8,14 +8,13 @@ import { AddArticleView } from '../../src/views/add-article.view';
 import { expect, test } from '@playwright/test';
 
 test.describe.configure({ mode: 'serial' });
-test.describe('Create and verify article', () => {
-  let loginPage: LoginPage;
+test.describe('Create, verify and delete article', () => {
   let articlesPage: ArticlesPage;
   let articleData: AddArticleModel;
   let articlePage: ArticlePage;
 
   test.beforeEach(async ({ page }) => {
-    loginPage = new LoginPage(page);
+    const loginPage = new LoginPage(page);
     articlesPage = new ArticlesPage(page);
     articlePage = new ArticlePage(page);
 
@@ -44,8 +43,6 @@ test.describe('Create and verify article', () => {
   });
 
   test('user can access single article @GAD-R04-03', async () => {
-    // Arrange
-
     // Act
     await articlesPage.gotoArticle(articleData.title);
 
@@ -54,5 +51,21 @@ test.describe('Create and verify article', () => {
     await expect
       .soft(articlePage.articleBody)
       .toHaveText(articleData.body, { useInnerText: true });
+  });
+
+  test('user can delete his own article @GAD-R04-04', async () => {
+    // Arrange
+    await articlesPage.gotoArticle(articleData.title);
+
+    // Act
+    await articlePage.deleteArticle();
+
+    // Assert
+    await articlesPage.waitForPageToLoadUrl();
+    const title = await articlesPage.title();
+    expect(title).toContain('Articles');
+
+    await articlesPage.searchArticle(title);
+    await expect(articlesPage.noResultText).toHaveText('No data');
   });
 });
