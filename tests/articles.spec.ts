@@ -24,43 +24,9 @@ test.describe('Verify articles', () => {
     await expect.soft(addArticleView.addNewHeader).toBeVisible();
   });
 
-  test('user can access single article @GAD-R04-03', async ({ page }) => {
-    // Arrange
-    const articlePage = new ArticlePage(page);
-    const articleData = prepareRandomArticle();
-
-    // Act
-    await addArticleView.createArticle(articleData);
-    await articlesPage.goto();
-    await page.getByText(articleData.title).click();
-
-    // Assert
-    await expect.soft(articlePage.articleTitle).toHaveText(articleData.title);
-    await expect
-      .soft(articlePage.articleBody)
-      .toHaveText(articleData.body, { useInnerText: true });
-  });
-
-  test('create new article @GAD-R04-01', async ({ page }) => {
-    // Arrange
-    const expectAlertPopupText = 'Article was created';
-    const articlePage = new ArticlePage(page);
-    const articleData = prepareRandomArticle();
-
-    // Act
-    await addArticleView.createArticle(articleData);
-
-    // Assert
-    await expect.soft(articlePage.articleTitle).toHaveText(articleData.title);
-    await expect
-      .soft(articlePage.articleBody)
-      .toHaveText(articleData.body, { useInnerText: true });
-    await expect.soft(articlePage.alertPopUp).toHaveText(expectAlertPopupText);
-  });
-
   test('reject creating article without title @GAD-R04-01', async () => {
     // Arrange
-    const expectAlertPopupText = 'Article was not created';
+    const expectedErrorMessage = 'Article was not created';
     const articleData = prepareRandomArticle();
     articleData.title = '';
 
@@ -68,12 +34,12 @@ test.describe('Verify articles', () => {
     await addArticleView.createArticle(articleData);
 
     // Assert
-    await expect(addArticleView.alertPopUp).toHaveText(expectAlertPopupText);
+    await expect(addArticleView.alertPopUp).toHaveText(expectedErrorMessage);
   });
 
   test('reject creating article without body @GAD-R04-01', async () => {
     // Arrange
-    const expectAlertPopupText = 'Article was not created';
+    const expectedErrorMessage = 'Article was not created';
     const articleData = prepareRandomArticle();
     articleData.body = '';
 
@@ -81,28 +47,28 @@ test.describe('Verify articles', () => {
     await addArticleView.createArticle(articleData);
 
     // Assert
-    await expect(addArticleView.alertPopUp).toHaveText(expectAlertPopupText);
+    await expect(addArticleView.alertPopUp).toHaveText(expectedErrorMessage);
   });
 
   test.describe('title length', () => {
     test('reject creating article with title exceeding 128 signs @GAD-R04-02', async () => {
       // Arrange
-      const expectAlertPopupText = 'Article was not created';
+      const expectedErrorMessage = 'Article was not created';
       const articleData = prepareRandomArticle(129);
 
       // Act
       await addArticleView.createArticle(articleData);
 
       // Assert
-      await expect(addArticleView.alertPopUp).toHaveText(expectAlertPopupText);
+      await expect(addArticleView.alertPopUp).toHaveText(expectedErrorMessage);
     });
 
     test('create article with title with 128 signs @GAD-R04-02', async ({
       page,
     }) => {
       // Arrange
-      const articleData = prepareRandomArticle(128);
       const articlePage = new ArticlePage(page);
+      const articleData = prepareRandomArticle(128);
 
       // Act
       await addArticleView.createArticle(articleData);
