@@ -21,7 +21,7 @@ test.describe('Verify articles', () => {
     await articlesPage.goto();
     await articlesPage.addArticleButtonLogged.click();
 
-    await expect.soft(addArticleView.header).toBeVisible();
+    await expect.soft(addArticleView.addNewHeader).toBeVisible();
   });
 
   test('user can access single article @GAD-R04-03', async ({ page }) => {
