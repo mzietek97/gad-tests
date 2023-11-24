@@ -1,4 +1,4 @@
-import { randomNewArticle } from '../src/factories/article.factory';
+import { prepareRandomArticle } from '../src/factories/article.factory';
 import { ArticlePage } from '../src/pages/article.page';
 import { ArticlesPage } from '../src/pages/articles.page';
 import { LoginPage } from '../src/pages/login.page';
@@ -27,7 +27,7 @@ test.describe('Verify articles', () => {
   test('user can access single article @GAD-R04-03', async ({ page }) => {
     // Arrange
     const articlePage = new ArticlePage(page);
-    const articleData = randomNewArticle();
+    const articleData = prepareRandomArticle();
 
     // Act
     await addArticleView.createArticle(articleData);
@@ -45,7 +45,7 @@ test.describe('Verify articles', () => {
     // Arrange
     const expectAlertPopupText = 'Article was created';
     const articlePage = new ArticlePage(page);
-    const articleData = randomNewArticle();
+    const articleData = prepareRandomArticle();
 
     // Act
     await addArticleView.createArticle(articleData);
@@ -61,7 +61,7 @@ test.describe('Verify articles', () => {
   test('reject creating article without title @GAD-R04-01', async () => {
     // Arrange
     const expectAlertPopupText = 'Article was not created';
-    const articleData = randomNewArticle();
+    const articleData = prepareRandomArticle();
     articleData.title = '';
 
     // Act
@@ -74,7 +74,7 @@ test.describe('Verify articles', () => {
   test('reject creating article without body @GAD-R04-01', async () => {
     // Arrange
     const expectAlertPopupText = 'Article was not created';
-    const articleData = randomNewArticle();
+    const articleData = prepareRandomArticle();
     articleData.body = '';
 
     // Act
@@ -88,7 +88,7 @@ test.describe('Verify articles', () => {
     test('reject creating article with title exceeding 128 signs @GAD-R04-02', async () => {
       // Arrange
       const expectAlertPopupText = 'Article was not created';
-      const articleData = randomNewArticle(129);
+      const articleData = prepareRandomArticle(129);
 
       // Act
       await addArticleView.createArticle(articleData);
@@ -101,7 +101,7 @@ test.describe('Verify articles', () => {
       page,
     }) => {
       // Arrange
-      const articleData = randomNewArticle(128);
+      const articleData = prepareRandomArticle(128);
       const articlePage = new ArticlePage(page);
 
       // Act
