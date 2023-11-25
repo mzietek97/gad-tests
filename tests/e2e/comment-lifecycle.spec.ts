@@ -2,6 +2,7 @@ import { prepareRandomArticle } from '../../src/factories/article.factory';
 import { AddArticleModel } from '../../src/models/article.model';
 import { ArticlePage } from '../../src/pages/article.page';
 import { ArticlesPage } from '../../src/pages/articles.page';
+import { CommentPage } from '../../src/pages/comment.page';
 import { LoginPage } from '../../src/pages/login.page';
 import { testUser1 } from '../../src/test-data/user.data';
 import { AddArticleView } from '../../src/views/add-article.view';
@@ -13,13 +14,15 @@ test.describe('Create, verify and delete comment', () => {
   let articleData: AddArticleModel;
   let articlePage: ArticlePage;
   let addCommentView: AddCommentView;
+  let commentPage: CommentPage;
 
   test.beforeEach(async ({ page }) => {
     const loginPage = new LoginPage(page);
+    const addArticleView = new AddArticleView(page);
     articlesPage = new ArticlesPage(page);
     articlePage = new ArticlePage(page);
-    const addArticleView = new AddArticleView(page);
     addCommentView = new AddCommentView(page);
+    commentPage = new CommentPage(page);
 
     articleData = prepareRandomArticle();
 
@@ -33,7 +36,7 @@ test.describe('Create, verify and delete comment', () => {
   test('create new comment @GAD-R06-01', async () => {
     // Create new comment
     // Arrange
-    const expectAlertPopupText = 'Comment was created';
+    const expectedCommentCreatedPopup = 'Comment was created';
     const expectedAddCommentHeader = 'Add New Comment';
 
     // Act
@@ -41,10 +44,22 @@ test.describe('Create, verify and delete comment', () => {
     await expect(addCommentView.addNewHeader).toHaveText(
       expectedAddCommentHeader,
     );
-    await addCommentView.bodyInput.fill('Hello');
+    const commentText = 'Hello';
+    await addCommentView.bodyInput.fill(commentText);
     await addCommentView.saveButton.click();
 
     // Assert
-    await expect(articlePage.alertPopUp).toHaveText(expectAlertPopupText);
+    await expect(articlePage.alertPopUp).toHaveText(
+      expectedCommentCreatedPopup,
+    );
+
+    // Verify comment
+    // Act
+    const articleComment = articlePage.getArticleComment(commentText);
+    await expect(articleComment.body).toHaveText(commentText);
+    await articleComment.link.click();
+
+    // Assert
+    await expect(commentPage.commentBody).toHaveText(commentText);
   });
 });
