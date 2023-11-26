@@ -23,7 +23,7 @@ export class ArticlePage extends BasePage {
     this.page.on('dialog', async (dialog) => {
       await dialog.accept();
     });
-    this.deleteIcon.click();
+    await this.deleteIcon.click();
   }
 
   getArticleComment(body: string): ArticleComment {
