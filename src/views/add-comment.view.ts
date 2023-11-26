@@ -8,7 +8,7 @@ export class AddCommentView {
 
   constructor(private page: Page) {}
 
-  async addComment(commentData: AddCommentModel): Promise<void> {
+  async createComment(commentData: AddCommentModel): Promise<void> {
     await this.bodyInput.fill(commentData.body);
     await this.saveButton.click();
   }
