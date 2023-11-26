@@ -115,7 +115,6 @@ test.describe('Create, verify and delete comment', () => {
     });
 
     await test.step('create and verify second comment', async () => {
-      // eslint-disable-next-line playwright/no-nested-step
       const secondCommentBody = await test.step('create comment', async () => {
         const secondCommentData = prepareRandomComment();
         await articlePage.addCommentButton.click();
@@ -123,7 +122,6 @@ test.describe('Create, verify and delete comment', () => {
         return secondCommentData.body;
       });
 
-      // eslint-disable-next-line playwright/no-nested-step
       await test.step('verify comment', async () => {
         const articleComment = articlePage.getArticleComment(secondCommentBody);
         await expect(articleComment.body).toHaveText(secondCommentBody);
