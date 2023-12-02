@@ -5,8 +5,6 @@ import { AddCommentModel } from '../../src/models/comment.model';
 import { ArticlePage } from '../../src/pages/article.page';
 import { ArticlesPage } from '../../src/pages/articles.page';
 import { CommentPage } from '../../src/pages/comment.page';
-import { LoginPage } from '../../src/pages/login.page';
-import { testUser1 } from '../../src/test-data/user.data';
 import { AddArticleView } from '../../src/views/add-article.view';
 import { AddCommentView } from '../../src/views/add-comment.view';
 import { EditCommentView } from '../../src/views/edit-comment.view';
@@ -21,7 +19,6 @@ test.describe('Create, verify and delete comment', () => {
   let editCommentView: EditCommentView;
 
   test.beforeEach(async ({ page }) => {
-    const loginPage = new LoginPage(page);
     const addArticleView = new AddArticleView(page);
     articlesPage = new ArticlesPage(page);
     articlePage = new ArticlePage(page);
@@ -31,14 +28,12 @@ test.describe('Create, verify and delete comment', () => {
 
     articleData = prepareRandomArticle();
 
-    await loginPage.goto();
-    await loginPage.login(testUser1);
     await articlesPage.goto();
     await articlesPage.addArticleButtonLogged.click();
     await addArticleView.createArticle(articleData);
   });
 
-  test('operate on comment @GAD-R06-01 @GAD-R06-02', async () => {
+  test('operate on comment @GAD-R06-01 @GAD-R06-02 @logged', async () => {
     const newCommentData = prepareRandomComment();
 
     await test.step('create new comment', async () => {
@@ -97,7 +92,7 @@ test.describe('Create, verify and delete comment', () => {
       await expect(updatedArticleComment.body).toHaveText(editCommentData.body);
     });
   });
-  test('user can add more than one comment to article @GAD-R06-03', async () => {
+  test('user can add more than one comment to article @GAD-R06-03 @logged', async () => {
     await test.step('create first comment', async () => {
       // Arrange
       const expectedCommentCreatedPopup = 'Comment was created';
