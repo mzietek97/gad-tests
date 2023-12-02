@@ -40,7 +40,7 @@ export default defineConfig({
       grep: /@logged/,
       dependencies: ['setup'],
       use: {
-        ...devices['Desktop Firefox'],
+        ...devices['Desktop Chrome'],
         storageState: STORAGE_STATE,
       },
     },
