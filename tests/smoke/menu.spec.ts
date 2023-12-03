@@ -42,7 +42,7 @@ test.describe('Verify menu main buttons', () => {
     page,
   }) => {
     // Arrange
-    const expectedHomePageTitle = '🦎 GAD';
+    const expectedHomePageTitle = 'GAD';
     const articlesPage = new ArticlesPage(page);
     const homePage = new HomePage(page);
 
