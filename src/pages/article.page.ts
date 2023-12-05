@@ -23,7 +23,8 @@ export class ArticlePage extends BasePage {
     this.page.on('dialog', async (dialog) => {
       await dialog.accept();
     });
-    await this.deleteIcon.click();
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    this.deleteIcon.click();
   }
 
   getArticleComment(body: string): ArticleComment {
