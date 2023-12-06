@@ -8,8 +8,8 @@ import { expect, test } from '@playwright/test';
 test.describe.configure({ mode: 'serial' });
 test.describe('Create, verify and delete article', () => {
   let articlesPage: ArticlesPage;
-  let articleData: AddArticleModel;
   let articlePage: ArticlePage;
+  let articleData: AddArticleModel;
 
   test.beforeEach(async ({ page }) => {
     articlesPage = new ArticlesPage(page);
@@ -54,7 +54,7 @@ test.describe('Create, verify and delete article', () => {
     await articlesPage.gotoArticle(articleData.title);
 
     // Act
-    await articlePage.deleteArticle();
+    articlesPage = await articlePage.deleteArticle();
 
     // Assert
     await articlesPage.waitForPageToLoadUrl();
