@@ -13,9 +13,9 @@ test.describe('Create, verify and delete comment', () => {
   let articleData: AddArticleModel;
   let articlePage: ArticlePage;
   let editCommentView: EditCommentView;
+  let addArticleView: AddArticleView;
 
   test.beforeEach(async ({ page }) => {
-    const addArticleView = new AddArticleView(page);
     articlesPage = new ArticlesPage(page);
     articlePage = new ArticlePage(page);
     editCommentView = new EditCommentView(page);
@@ -23,7 +23,7 @@ test.describe('Create, verify and delete comment', () => {
     articleData = prepareRandomArticle();
 
     await articlesPage.goto();
-    await articlesPage.addArticleButtonLogged.click();
+    addArticleView = await articlesPage.clickAddArticleButtonLogged();
     await addArticleView.createArticle(articleData);
   });
 
