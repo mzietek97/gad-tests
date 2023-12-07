@@ -1,18 +1,15 @@
 import { prepareRandomArticle } from '@_src/factories/article.factory';
 import { AddArticleModel } from '@_src/models/article.model';
-import { ArticlePage } from '@_src/pages/article.page';
 import { ArticlesPage } from '@_src/pages/articles.page';
 import { expect, test } from '@playwright/test';
 
 test.describe.configure({ mode: 'serial' });
 test.describe('Create, verify and delete article', () => {
   let articlesPage: ArticlesPage;
-  let articlePage: ArticlePage;
   let articleData: AddArticleModel;
 
   test.beforeEach(async ({ page }) => {
     articlesPage = new ArticlesPage(page);
-    articlePage = new ArticlePage(page);
     await articlesPage.goto();
   });
 
@@ -24,7 +21,7 @@ test.describe('Create, verify and delete article', () => {
     // Act
     const addArticleView = await articlesPage.clickAddArticleButtonLogged();
     await expect.soft(addArticleView.addNewHeader).toBeVisible();
-    await addArticleView.createArticle(articleData);
+    const articlePage = await addArticleView.createArticle(articleData);
 
     // Assert
     await expect.soft(articlePage.articleTitle).toHaveText(articleData.title);
