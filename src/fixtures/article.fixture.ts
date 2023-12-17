@@ -10,6 +10,9 @@ interface ArticleCreationContext {
 
 interface ArticleFixtures {
   createRandomArticle: ArticleCreationContext;
+  randomArticle: (
+    articleData?: AddArticleModel,
+  ) => Promise<ArticleCreationContext>;
 }
 
 export const articleTest = pageObjectTest.extend<ArticleFixtures>({
@@ -17,5 +20,15 @@ export const articleTest = pageObjectTest.extend<ArticleFixtures>({
     const articleData = prepareRandomArticle();
     const articlePage = await addArticleView.createArticle(articleData);
     await use({ articlePage, articleData });
+  },
+  randomArticle: async ({ addArticleView }, use) => {
+    const create = async (
+      articleData?: AddArticleModel,
+    ): Promise<ArticleCreationContext> => {
+      const finalArticleData = articleData ?? prepareRandomArticle();
+      const articlePage = await addArticleView.createArticle(articleData);
+      return { articlePage, articleData: finalArticleData };
+    };
+    await use(create);
   },
 });
