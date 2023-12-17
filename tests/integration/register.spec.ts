@@ -1,19 +1,17 @@
 import { prepareRandomUser } from '@_src/factories/user.factory';
+import { expect, test } from '@_src/fixtures/merge.fixture';
 import { RegisterUserModel } from '@_src/models/user.model';
-import { RegisterPage } from '@_src/pages/register.page';
-import { expect, test } from '@playwright/test';
 
 test.describe('Verify register', () => {
-  let registerPage: RegisterPage;
   let registerUserData: RegisterUserModel;
 
-  test.beforeEach(async ({ page }) => {
-    registerPage = new RegisterPage(page);
+  test.beforeEach(async () => {
     registerUserData = prepareRandomUser();
-    await registerPage.goto();
   });
 
-  test('register with correct data and login @GAD-R03-01 @GAD-R03-02 @GAD-R03-03', async ({}) => {
+  test('register with correct data and login @GAD-R03-01 @GAD-R03-02 @GAD-R03-03', async ({
+    registerPage,
+  }) => {
     // Arrange
     const expectAlertPopupText = 'User created';
     const expectedWelcomeTitle = 'Welcome';
@@ -38,7 +36,9 @@ test.describe('Verify register', () => {
     expect(titleWelcome).toContain(expectedWelcomeTitle);
   });
 
-  test('not register with incorrect data - non valid email @GAD-R03-04', async () => {
+  test('not register with incorrect data - non valid email @GAD-R03-04', async ({
+    registerPage,
+  }) => {
     // Arrange
     const expectErrorText = 'Please provide a valid email address';
 
@@ -51,7 +51,9 @@ test.describe('Verify register', () => {
     await expect(registerPage.emailErrorText).toHaveText(expectErrorText);
   });
 
-  test('not register with incorrect data - email not provided @GAD-R03-04', async () => {
+  test('not register with incorrect data - email not provided @GAD-R03-04', async ({
+    registerPage,
+  }) => {
     // Arrange
     const expectErrorText = 'This field is required';
 
