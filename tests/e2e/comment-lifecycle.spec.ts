@@ -1,26 +1,20 @@
 import { prepareRandomArticle } from '@_src/factories/article.factory';
 import { prepareRandomComment } from '@_src/factories/comment.factory';
+import { expect, test } from '@_src/fixtures/merge.fixture';
 import { AddArticleModel } from '@_src/models/article.model';
 import { AddCommentModel } from '@_src/models/comment.model';
 import { ArticlePage } from '@_src/pages/article.page';
-import { ArticlesPage } from '@_src/pages/articles.page';
-import { expect, test } from '@playwright/test';
 
 test.describe('Create, verify and delete comment', () => {
   let articleData: AddArticleModel;
   let articlePage: ArticlePage;
 
-  test.beforeEach(async ({ page }) => {
-    const articlesPage = new ArticlesPage(page);
-
+  test.beforeEach(async ({ addArticleView }) => {
     articleData = prepareRandomArticle();
-
-    await articlesPage.goto();
-    const addArticleView = await articlesPage.clickAddArticleButtonLogged();
     articlePage = await addArticleView.createArticle(articleData);
   });
 
-  test('operate on comment @GAD-R06-01 @GAD-R06-02 @logged', async () => {
+  test('operate on comment @GAD-R06-01 @GAD-R06-02 @logged', async ({}) => {
     const newCommentData = prepareRandomComment();
 
     await test.step('create new comment', async () => {
@@ -81,7 +75,7 @@ test.describe('Create, verify and delete comment', () => {
       await expect(updatedArticleComment.body).toHaveText(editCommentData.body);
     });
   });
-  test('user can add more than one comment to article @GAD-R06-03 @logged', async () => {
+  test('user can add more than one comment to article @GAD-R06-03 @logged', async ({}) => {
     await test.step('create first comment', async () => {
       // Arrange
       const expectedCommentCreatedPopup = 'Comment was created';
