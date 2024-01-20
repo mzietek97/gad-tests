@@ -10,7 +10,7 @@ export const STORAGE_STATE = path.join(__dirname, 'tmp/session.json');
 
 export default defineConfig({
     testDir: './tests',
-    globalSetup: 'config/global.setup.ts',
+    globalSetup: require.resolve('./config/global.setup.ts'),
     timeout: 60_000,
     expect: { timeout: 10_000 },
     fullyParallel: true,
