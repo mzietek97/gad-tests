@@ -4,24 +4,24 @@ import { HomePage } from '@_src/pages/home.page';
 import { Page } from '@playwright/test';
 
 export class MainMenuComponent {
-  commentsButton = this.page.getByTestId('open-comments');
-  articlesButton = this.page.getByTestId('open-articles');
-  homePageLink = this.page.getByRole('link', { name: '🦎 GAD' });
+    commentsButton = this.page.getByTestId('open-comments');
+    articlesButton = this.page.getByTestId('open-articles');
+    homePageLink = this.page.getByRole('link', { name: '🦎 GAD' });
 
-  constructor(private page: Page) {}
+    constructor(private page: Page) {}
 
-  async clickCommentButton(): Promise<CommentsPage> {
-    await this.commentsButton.click();
-    return new CommentsPage(this.page);
-  }
+    async clickCommentButton(): Promise<CommentsPage> {
+        await this.commentsButton.click();
+        return new CommentsPage(this.page);
+    }
 
-  async clickArticleButton(): Promise<ArticlesPage> {
-    await this.articlesButton.click();
-    return new ArticlesPage(this.page);
-  }
+    async clickArticleButton(): Promise<ArticlesPage> {
+        await this.articlesButton.click();
+        return new ArticlesPage(this.page);
+    }
 
-  async clickHomePageLink(): Promise<HomePage> {
-    await this.homePageLink.click();
-    return new HomePage(this.page);
-  }
+    async clickHomePageLink(): Promise<HomePage> {
+        await this.homePageLink.click();
+        return new HomePage(this.page);
+    }
 }

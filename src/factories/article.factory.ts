@@ -2,17 +2,17 @@ import { AddArticleModel } from '@_src/models/article.model';
 import { faker } from '@faker-js/faker/locale/en';
 
 export function prepareRandomArticle(
-  titleLength?: number,
-  bodyParagraphs = 5,
+    titleLength?: number,
+    bodyParagraphs = 5,
 ): AddArticleModel {
-  let title: string;
+    let title: string;
 
-  if (titleLength) title = faker.string.alpha(titleLength);
-  else title = faker.lorem.sentence();
+    if (titleLength) title = faker.string.alpha(titleLength);
+    else title = faker.lorem.sentence();
 
-  const body = faker.lorem.paragraphs(bodyParagraphs);
+    const body = faker.lorem.paragraphs(bodyParagraphs);
 
-  const newArticle: AddArticleModel = { title: title, body: body };
+    const newArticle: AddArticleModel = { title: title, body: body };
 
-  return newArticle;
+    return newArticle;
 }

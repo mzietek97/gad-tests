@@ -3,19 +3,19 @@ import { ArticlePage } from '@_src/pages/article.page';
 import { Page } from '@playwright/test';
 
 export class AddArticleView {
-  addNewHeader = this.page.getByRole('heading', { name: 'Add New Entry' });
-  titleInput = this.page.getByTestId('title-input');
-  bodyInput = this.page.getByTestId('body-text');
-  saveButton = this.page.getByTestId('save');
-  alertPopUp = this.page.getByTestId('alert-popup');
+    addNewHeader = this.page.getByRole('heading', { name: 'Add New Entry' });
+    titleInput = this.page.getByTestId('title-input');
+    bodyInput = this.page.getByTestId('body-text');
+    saveButton = this.page.getByTestId('save');
+    alertPopUp = this.page.getByTestId('alert-popup');
 
-  constructor(private page: Page) {}
+    constructor(private page: Page) {}
 
-  async createArticle(addArticle: AddArticleModel): Promise<ArticlePage> {
-    await this.titleInput.fill(addArticle.title);
-    await this.bodyInput.fill(addArticle.body);
-    await this.saveButton.click();
+    async createArticle(addArticle: AddArticleModel): Promise<ArticlePage> {
+        await this.titleInput.fill(addArticle.title);
+        await this.bodyInput.fill(addArticle.body);
+        await this.saveButton.click();
 
-    return new ArticlePage(this.page);
-  }
+        return new ArticlePage(this.page);
+    }
 }

@@ -3,15 +3,15 @@ import { CommentPage } from '@_src/pages/comment.page';
 import { Page } from '@playwright/test';
 
 export class EditCommentView {
-  bodyInput = this.page.getByTestId('body-input');
-  updateButton = this.page.getByTestId('update-button');
+    bodyInput = this.page.getByTestId('body-input');
+    updateButton = this.page.getByTestId('update-button');
 
-  constructor(private page: Page) {}
+    constructor(private page: Page) {}
 
-  async updateComment(commentData: AddCommentModel): Promise<CommentPage> {
-    await this.bodyInput.fill(commentData.body);
-    await this.updateButton.click();
+    async updateComment(commentData: AddCommentModel): Promise<CommentPage> {
+        await this.bodyInput.fill(commentData.body);
+        await this.updateButton.click();
 
-    return new CommentPage(this.page);
-  }
+        return new CommentPage(this.page);
+    }
 }

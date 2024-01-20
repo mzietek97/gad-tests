@@ -1,3 +1,3 @@
 export interface AddCommentModel {
-  body: string;
+    body: string;
 }

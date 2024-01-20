@@ -1,4 +1,4 @@
 export interface AddArticleModel {
-  title: string;
-  body: string;
+    title: string;
+    body: string;
 }
