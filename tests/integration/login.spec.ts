@@ -4,9 +4,7 @@ import { testUser1 } from '@_src/test-data/user.data';
 import { faker } from '@faker-js/faker/locale/en';
 
 test.describe('Verify login', () => {
-    test('login with correct credentials @GAD-R02-01', async ({
-        loginPage,
-    }) => {
+    test('login with correct credentials @GAD-R02-01', async ({ loginPage }) => {
         // Arrange
         const expectedWelcomeTitle = 'Welcome';
 
@@ -19,9 +17,7 @@ test.describe('Verify login', () => {
         expect(title).toContain(expectedWelcomeTitle);
     });
 
-    test('reject login with incorrect password @GAD-R02-01', async ({
-        loginPage,
-    }) => {
+    test('reject login with incorrect password @GAD-R02-01', async ({ loginPage }) => {
         // Arrange
         const expectedLoginTitle = 'Login';
 
@@ -34,9 +30,7 @@ test.describe('Verify login', () => {
         await loginPage.login(loginUserData);
 
         // Assert
-        await expect
-            .soft(loginPage.loginError)
-            .toHaveText('Invalid username or password');
+        await expect.soft(loginPage.loginError).toHaveText('Invalid username or password');
         const title = await loginPage.getTitle();
         expect.soft(title).toContain(expectedLoginTitle);
     });

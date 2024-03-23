@@ -9,9 +9,7 @@ interface WaitParams {
     text?: string;
 }
 
-export async function waitForResponse(
-    waitParams: WaitParams,
-): Promise<Response> {
+export async function waitForResponse(waitParams: WaitParams): Promise<Response> {
     return waitParams.page.waitForResponse(
         async (response) => {
             // console.log(
@@ -19,15 +17,7 @@ export async function waitForResponse(
             //     response.request().method(),
             //     response.url(),
             // );
-            return (
-                response.url().includes(waitParams.url) &&
-                (!waitParams.method ||
-                    response.request().method() === waitParams.method) &&
-                (!waitParams.status ||
-                    response.status() === waitParams.status) &&
-                (!waitParams.text ||
-                    (await response.text())?.includes(waitParams.text))
-            );
+            return response.url().includes(waitParams.url) && (!waitParams.method || response.request().method() === waitParams.method) && (!waitParams.status || response.status() === waitParams.status) && (!waitParams.text || (await response.text())?.includes(waitParams.text));
         },
         {
             timeout: RESPONSE_TIMEOUT,

@@ -9,9 +9,7 @@ test.describe('Verify register', () => {
         registerUserData = prepareRandomUser();
     });
 
-    test('register with correct data and login @GAD-R03-01 @GAD-R03-02 @GAD-R03-03', async ({
-        registerPage,
-    }) => {
+    test('register with correct data and login @GAD-R03-01 @GAD-R03-02 @GAD-R03-03', async ({ registerPage }) => {
         // Arrange
         const expectAlertPopupText = 'User created';
         const expectedWelcomeTitle = 'Welcome';
@@ -36,9 +34,7 @@ test.describe('Verify register', () => {
         expect(titleWelcome).toContain(expectedWelcomeTitle);
     });
 
-    test('not register with incorrect data - non valid email @GAD-R03-04', async ({
-        registerPage,
-    }) => {
+    test('not register with incorrect data - non valid email @GAD-R03-04', async ({ registerPage }) => {
         // Arrange
         const expectErrorText = 'Please provide a valid email address';
 
@@ -51,22 +47,14 @@ test.describe('Verify register', () => {
         await expect(registerPage.emailErrorText).toHaveText(expectErrorText);
     });
 
-    test('not register with incorrect data - email not provided @GAD-R03-04', async ({
-        registerPage,
-    }) => {
+    test('not register with incorrect data - email not provided @GAD-R03-04', async ({ registerPage }) => {
         // Arrange
         const expectErrorText = 'This field is required';
 
         // Act
-        await registerPage.userFirstNameInput.fill(
-            registerUserData.userFirstName,
-        );
-        await registerPage.userLastNameInput.fill(
-            registerUserData.userLastName,
-        );
-        await registerPage.userPasswordInput.fill(
-            registerUserData.userPassword,
-        );
+        await registerPage.userFirstNameInput.fill(registerUserData.userFirstName);
+        await registerPage.userLastNameInput.fill(registerUserData.userLastName);
+        await registerPage.userPasswordInput.fill(registerUserData.userPassword);
         await registerPage.registerButton.click();
 
         // Assert

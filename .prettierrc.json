@@ -2,6 +2,7 @@
     "singleQuote": true,
     "endOfLine": "auto",
     "tabWidth": 4,
+    "printWidth": 300,
     "semi": true,
     "plugins": ["@trivago/prettier-plugin-sort-imports"],
     "importOrderSeparation": true,

@@ -2,10 +2,7 @@ import { expect, test } from '@_src/fixtures/merge.fixture';
 import { waitForResponse } from '@_src/utils/wait.utils';
 
 test.describe('Verify search component for articles', () => {
-    test('Go button should fetch articles @GAD-R07-01', async ({
-        articlesPage,
-        page,
-    }) => {
+    test('Go button should fetch articles @GAD-R07-01', async ({ articlesPage, page }) => {
         // Arrange
         await expect(articlesPage.goSearchButton).toBeInViewport();
         const responsePromise = waitForResponse({ page, url: '/api/articles' });
