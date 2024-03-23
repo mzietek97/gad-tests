@@ -25,4 +25,20 @@ test.describe('Verify articles API endpoints', () => {
         // Assert
         expect(responseJson.length).toBeGreaterThanOrEqual(expectedMinArticleCount);
     });
+
+    test('GET articles return article object @predefined_data', async ({ request }) => {
+        // Arrange
+        const articlesUrl = '/api/articles';
+        const expectedRequiredFields = ['id', 'user_id', 'title', 'body', 'date', 'image'];
+
+        // Act
+        const response = await request.get(articlesUrl);
+        const responseJson = await response.json();
+        const article = responseJson[0];
+
+        // Assert
+        expectedRequiredFields.forEach((key) => {
+            expect.soft(article).toHaveProperty(key);
+        });
+    });
 });
